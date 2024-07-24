@@ -35,3 +35,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   // Your code to run since DOM is loaded and ready
 });
+
+// script.js
+document.addEventListener('DOMContentLoaded', () => {
+  const decrementBtn = document.getElementById('decrement-btn');
+  const incrementBtn = document.getElementById('increment-btn');
+  const quantityInput = document.getElementById('quantity-input');
+
+  decrementBtn.addEventListener('click', () => {
+      let currentValue = parseInt(quantityInput.value);
+      if (currentValue > 1) {
+          quantityInput.value = currentValue - 1;
+      }
+  });
+
+  incrementBtn.addEventListener('click', () => {
+      let currentValue = parseInt(quantityInput.value);
+      quantityInput.value = currentValue + 1;
+  });
+});
+

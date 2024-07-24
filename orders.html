@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/orders.css">
+    <link rel="stylesheet" href="css/orders.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -25,7 +25,13 @@
       <div class="btn-group">
         <i class="bx bxs-bell avatar mx-4"></i>
         <i class="bx bxs-user-circle avatar"></i>
-        <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="width: 20px; border: none; color: #604be8;">
+        <button
+          type="button"
+          class="btn dropdown-toggle dropdown-toggle-split"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          style="width: 20px; border: none; color: #604be8"
+        >
           <span class="visually-hidden">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu">
@@ -72,9 +78,256 @@
     </div>
     <!--Container Main start-->
     <div class="main-container">
-      <h1 class="fw-bold mb-2 fs-3">Orders</h1>
+      <div class="head d-flex ms-auto">
+        <h1 class="fw-bold mb-2 fs-3">Orders</h1>
 
-      
+        <div class="d-flex align-items-center">
+          <div class="searchbar">
+            <input
+              class="search_input"
+              type="text"
+              name=""
+              placeholder="Search..."
+            />
+            <a href="#" class="search_icon"
+              ><i class="bx bx-search avatar"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category d-flex gap-5 m-3">
+        <span class="active1">All</span>
+        <span>Burgers</span>
+        <span>Submarines</span>
+        <span>Fries</span>
+        <span>Pasta</span>
+        <span>Chicken</span>
+        <span>Beverages</span>
+      </div>
+
+      <div class="splitter">
+        <div class="main-left">
+          <div class="items">
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 1.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 1.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 1.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 1.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 1.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 1.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 1.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 3.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 1.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 3.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">15% off</span>
+              </div>
+            </div>
+
+            <div class="item-card">
+              <div class="img">
+                <img src="img/burger 4.png" alt="burger" />
+              </div>
+              <div class="content">
+                <h3>Cheese Burger</h3>
+                <span class="price">Rs.750</span>
+                <span class="discount">5% off</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="main-right">
+            <div class="cart">
+              <div class="order-id">
+                <span>Order</span>
+                <span class="id">#001301</span>
+              </div>
+
+              <div class="user-details">
+                <div class="input-area mt-3">
+                  <input type="text" placeholder="Name" />
+                </div>
+                <div class="input-area mt-2">
+                  <input type="text" placeholder="Phone Number" />
+                </div>
+              </div>
+
+              <div class="cart-item d-flex gap-4 mt-3 align-items-center">
+                <div class="desc-item">
+                  <h5>Chicken Burger</h5>
+                  <span>15% off</span>
+                </div>
+                <div class="quantity-container">
+                  <button class="quantity-btn" id="decrement-btn">-</button>
+                  <input type="text" id="quantity-input" value="4" readonly />
+                  <button class="quantity-btn" id="increment-btn">+</button>
+                </div>
+                <div class="price">
+                  <h6>Rs.750</h6>
+                </div>
+                <div class="trash-icon">
+                  <i class="bx bxs-trash avatar"></i>
+                </div>
+              </div>
+
+              <div class="cart-item d-flex gap-4 mt-3 align-items-center">
+                <div class="desc-item">
+                  <h5>Chicken Burger</h5>
+                  <span>15% off</span>
+                </div>
+                <div class="quantity-container">
+                  <button class="quantity-btn" id="decrement-btn">-</button>
+                  <input type="text" id="quantity-input" value="4" readonly />
+                  <button class="quantity-btn" id="increment-btn">+</button>
+                </div>
+                <div class="price">
+                  <h6>Rs.750</h6>
+                </div>
+                <div class="trash-icon">
+                  <i class="bx bxs-trash avatar"></i>
+                </div>
+              </div>
+
+              <div class="cart-item d-flex gap-4 mt-3 align-items-center">
+                <div class="desc-item">
+                  <h5>Chicken Burger fries</h5>
+                  <span>15% off</span>
+                </div>
+                <div class="quantity-container">
+                  <button class="quantity-btn" id="decrement-btn">-</button>
+                  <input type="text" id="quantity-input" value="4" readonly />
+                  <button class="quantity-btn" id="increment-btn">+</button>
+                </div>
+                <div class="price">
+                  <h6>Rs.750</h6>
+                </div>
+                <div class="trash-icon">
+                  <i class="bx bxs-trash avatar"></i>
+                </div>
+              </div>
+
+              <div class="cart-item d-flex gap-4 mt-3 align-items-center">
+                <div class="desc-item">
+                  <h5>Chicken Burger fries</h5>
+                  <span>15% off</span>
+                </div>
+                <div class="quantity-container">
+                  <button class="quantity-btn" id="decrement-btn">-</button>
+                  <input type="text" id="quantity-input" value="4" readonly />
+                  <button class="quantity-btn" id="increment-btn">+</button>
+                </div>
+                <div class="price">
+                  <h6>Rs.750</h6>
+                </div>
+                <div class="trash-icon">
+                  <i class="bx bxs-trash avatar"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="billing-con">
+            <div class="input-area mt-2 fs-5">
+              <input type="text" placeholder="Discount" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!--Container Main end-->
 
