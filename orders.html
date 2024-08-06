@@ -97,10 +97,10 @@
                 <button class="nav-link active" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">All</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Burgers</button>
+                <button class="nav-link" id="pills-burgers-tab" data-bs-toggle="pill" data-bs-target="#pills-burgers" type="button" role="tab" aria-controls="pills-burgers" aria-selected="false">Burgers</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Submarines</button>
+                <button class="nav-link" id="pills-submarines-tab" data-bs-toggle="pill" data-bs-target="#pills-submarines" type="button" role="tab" aria-controls="pills-submarines" aria-selected="false">Submarines</button>
               </li>
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Pasta</button>
@@ -121,8 +121,16 @@
                   <!-- Item Card inserts using js -->
                 </div>
               </div>
-              <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">...</div>
-              <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">...</div>
+              <div class="tab-pane fade" id="pills-burgers" role="tabpanel" aria-labelledby="pills-burgers-tab" tabindex="0">
+                <div class="item-list" id="burgers">
+                  <!-- Item Card inserts using js -->
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-submarines" role="tabpanel" aria-labelledby="pills-submarines-tab" tabindex="0">
+                <div class="item-list" id="submarines">
+                  <!-- Item Card inserts using js -->
+                </div>
+              </div>
               <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">...</div>
               <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">...</div>
             </div>
@@ -130,14 +138,15 @@
         </div>
         <div class="col-sm-4">
           <div class="cart">
-            <div class="card-body">
+            <div class="card-body" id="card-body">
               <div class="order-id">
                 <span class="fw-bold fs-5">Order</span>
                 <span class="id text-danger ms-4">#001301</span>
+                <hr>
               </div>
-              <hr>
+              
               <!-- items -->
-              <div class="cart-item d-flex gap-4 mt-3 mb-3 align-items-center justify-content-center">
+              <!-- <div class="cart-item d-flex gap-4 mt-3 mb-3 align-items-center justify-content-center">
                 <div class="desc-item">
                   <h5>Chicken Burger fries</h5>
                   <span>15% off</span>
@@ -151,11 +160,12 @@
                   <h6>Rs.750</h6>
                 </div>
                 <div class="trash-icon">
-                  <i class="bx bxs-trash avatar"></i>
+                  <i class="bx bxs-trash avatar" role="button"></i>
                 </div>
-              </div>
-              <hr>
+              </div> -->
+              
             </div>
+            <hr class="bg-transparent">
             <div class="billing-con">
               <div class="input-area mt-2 fs-5">
                 <input type="text" placeholder="Discount" />

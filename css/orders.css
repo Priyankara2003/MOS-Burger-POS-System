@@ -183,6 +183,7 @@ hr {
 
 .quantity-container {
   margin-top: 10px;
+  margin-right: 10px;
   width: 110px;
   border-radius: 10px;
   background-color: #6a4af1; /* Purple color */
@@ -209,13 +210,13 @@ hr {
   border: none;
   font-size: 15px;
   background-color: transparent;
-  color: #fff;
+  color: #fff !important;
   outline: none;
 }
 
 .desc-item{
   line-height: 5px;
-  width: 200px;
+  width: 180px;
 }
 
 .desc-item h5{
