@@ -202,7 +202,6 @@ itemList.forEach((element) => {
             `;
     itemCard.addEventListener("click", () => addToCart(element.id));
     burgers.appendChild(itemCard);
-
   } else if (element.category == "Submarines") {
     const submarines = document.getElementById("submarines");
     const itemCard = document.createElement("div");
@@ -229,20 +228,24 @@ let cartItem = document.getElementById("all");
 let cart = [];
 
 function addToCart(product_Id) {
-  let itemIsInTheCart = cart.findIndex((value) => value.productId === product_Id);
+  let itemIsInTheCart = cart.findIndex(
+    (value) => value.productId === product_Id
+  );
 
   if (cart.length == 0) {
-    cart=[{
-      productId: product_Id,
-      quantity: 1
-    }]
-  }else if (itemIsInTheCart < 0) {
+    cart = [
+      {
+        productId: product_Id,
+        quantity: 1,
+      },
+    ];
+  } else if (itemIsInTheCart < 0) {
     cart.push({
       productId: product_Id,
-      quantity: 1
-    })
-  }else{
-    cart[itemIsInTheCart].quantity = cart[itemIsInTheCart].quantity+1;
+      quantity: 1,
+    });
+  } else {
+    cart[itemIsInTheCart].quantity = cart[itemIsInTheCart].quantity + 1;
   }
   addToHtml();
 }
@@ -250,50 +253,97 @@ function addToCart(product_Id) {
 const addToHtml = () => {
   let cartBody = document.getElementById("card-body");
   clearContentAfterOrderId();
-  
-  cart.forEach(carts => {
+
+  cart.forEach((carts) => {
     const items = document.createElement("div");
     items.setAttribute("id", "items");
-    items.classList.add("cart-item", "d-flex", "gap-4", "mt-3", "mb-3", "align-items-center", "justify-content-center");
+    items.classList.add(
+      "cart-item",
+      "d-flex",
+      "gap-4",
+      "mt-3",
+      "mb-3",
+      "align-items-center",
+      "justify-content-center"
+    );
     items.dataset.id = carts.productId;
-    let indexOfObject = itemList.findIndex((value) => value.id == carts.productId);
+    let indexOfObject = itemList.findIndex(
+      (value) => value.id == carts.productId
+    );
     let objectInfo = itemList[indexOfObject];
-    
+
     items.innerHTML = `
       <div class="desc-item">
         <h5>${objectInfo.title}</h5>
         <span>${objectInfo.discount}% off</span>
       </div>
       <div class="quantity-container">
-        <button class="quantity-btn" id="decrement-btn">-</button>
-        <input type="text" id="quantity-input" value="${carts.quantity}" readonly />
-        <button class="quantity-btn" id="increment-btn">+</button>
+        <button class="quantity-btn decrement-btn" id="decrement-btn">-</button>
+        <input type="text" id="quantity-input" value="${
+          carts.quantity
+        }" readonly />
+        <button class="quantity-btn increment-btn" id="increment-btn">+</button>
       </div>
       <div class="price d-flex justify-content-center">
         <h6>Rs.${objectInfo.price * carts.quantity}</h6>
       </div>
       <div class="trash-icon">
-        <i class="bx bxs-trash avatar" role="button"></i>
+        <i class="bx bxs-trash avatar" role="button" onclick="deleteItem()"></i>
       </div>
     `;
-    
+
     cartBody.appendChild(items); // Append each items element inside the loop
-  });
-}
+  });  
+};
 
 function clearContentAfterOrderId() {
+  const parent = document.querySelector(".card-body");
 
-  const parent = document.querySelector('.card-body');
-
-  const orderIdElement = parent.querySelector('.order-id');
+  const orderIdElement = parent.querySelector(".order-id");
 
   let sibling = orderIdElement.nextElementSibling;
 
   while (sibling) {
-      let nextSibling = sibling.nextElementSibling;
-      sibling.remove();
-      sibling = nextSibling;
+    let nextSibling = sibling.nextElementSibling;
+    sibling.remove();
+    sibling = nextSibling;
   }
 }
 
 //------------------increase and decrease quantity-----
+const cartItemToIncrease = document.getElementById("card-body");
+
+cartItemToIncrease.addEventListener("click" , (event) => {
+  let positionClick = event.target;
+  if (positionClick.classList.contains('increment-btn') || positionClick.classList.contains('decrement-btn')) {
+    let product_Id = positionClick.parentElement.parentElement.dataset.id;
+    console.log(product_Id);
+    let type = "minus";
+    if (positionClick.classList.contains('increment-btn')) {
+      type = "plus";
+    }
+  changeQuantity(product_Id,type);
+  }
+})
+
+const changeQuantity = (product_Id,type) => {
+  let itemInfo = cart.findIndex(value => value.productId == product_Id);
+  if (type == "minus") {
+    if (cart[itemInfo].quantity > 1) {
+      cart[itemInfo].quantity = cart[itemInfo].quantity - 1;
+    }
+  }else {
+    cart[itemInfo].quantity = cart[itemInfo].quantity + 1;
+  }
+  addToHtml();
+}
+
+//----------------------trash button function-----------------
+
+function deleteItem(){
+  let product_Id = cartItemToIncrease.parentElement.parentElement.dataset.id;
+  let itemInfo = cart.findIndex(value => value.productId == product_Id);
+
+  cart.splice(itemInfo);
+  addToHtml();
+}
