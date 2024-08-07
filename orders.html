@@ -149,22 +149,22 @@
             <hr class="bg-transparent">
             <div class="billing-con">
               <div class="input-area mt-2 fs-5">
-                <input type="text" placeholder="Discount" />
-                <a href="#" class="btn btn-primary ms-4">Apply</a>
+                <input type="text" placeholder="Discount" id="discount-percentage" autocomplete="off"/>
+                <a href="#" class="btn btn-primary ms-4" id="btn-discount" onclick="CalcDiscount(),CalcTotal(),ClearFields()">Apply</a>
               </div>
               <div class="total-bill">
                 <div class="subtotal d-flex">
                   <h5>SubTotal</h5>
-                  <h6>Rs.3750</h6>
+                  <h6 id="subtotal">Rs.0</h6>
                 </div>
                 <div class="discount d-flex">
                   <h5>Discount</h5>
-                  <h6>Rs.750</h6>
+                  <h6 id="discount">Rs.0</h6>
                 </div>
                 <hr />
                 <div class="total d-flex">
                   <h5>Total</h5>
-                  <h6>Rs.3000</h6>
+                  <h6 id="total">Rs.0</h6>
                 </div>
               </div>
               <div class="btn-section d-flex mt-3">

@@ -32,28 +32,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   linkColor.forEach((l) => l.addEventListener("click", colorLink));
-
-  // Your code to run since DOM is loaded and ready
 });
-
-// script.js
-// document.addEventListener("DOMContentLoaded", () => {
-//   const decrementBtn = document.getElementById("decrement-btn");
-//   const incrementBtn = document.getElementById("increment-btn");
-//   const quantityInput = document.getElementById("quantity-input");
-
-//   decrementBtn.addEventListener("click", () => {
-//     let currentValue = parseInt(quantityInput.value);
-//     if (currentValue > 1) {
-//       quantityInput.value = currentValue - 1;
-//     }
-//   });
-
-//   incrementBtn.addEventListener("click", () => {
-//     let currentValue = parseInt(quantityInput.value);
-//     quantityInput.value = currentValue + 1;
-//   });
-// });
 
 //------------------item array---------------------
 const itemList = [
@@ -247,10 +226,13 @@ function addToCart(product_Id) {
   } else {
     cart[itemIsInTheCart].quantity = cart[itemIsInTheCart].quantity + 1;
   }
-  addToHtml();
+  AddToHtml();
+  CalcSubTotal();
+  CalcDiscount();
+  CalcTotal()
 }
 
-const addToHtml = () => {
+const AddToHtml = () => {
   let cartBody = document.getElementById("card-body");
   clearContentAfterOrderId();
 
@@ -267,9 +249,7 @@ const addToHtml = () => {
       "justify-content-center"
     );
     items.dataset.id = carts.productId;
-    let indexOfObject = itemList.findIndex(
-      (value) => value.id == carts.productId
-    );
+    let indexOfObject = itemList.findIndex((value) => value.id == carts.productId);
     let objectInfo = itemList[indexOfObject];
 
     items.innerHTML = `
@@ -322,11 +302,11 @@ cartItemToIncrease.addEventListener("click" , (event) => {
     if (positionClick.classList.contains('increment-btn')) {
       type = "plus";
     }
-  changeQuantity(product_Id,type);
+  ChangeQuantity(product_Id,type);
   }
 })
 
-const changeQuantity = (product_Id,type) => {
+const ChangeQuantity = (product_Id,type) => {
   let itemInfo = cart.findIndex(value => value.productId == product_Id);
   if (type == "minus") {
     if (cart[itemInfo].quantity > 1) {
@@ -335,7 +315,10 @@ const changeQuantity = (product_Id,type) => {
   }else {
     cart[itemInfo].quantity = cart[itemInfo].quantity + 1;
   }
-  addToHtml();
+  AddToHtml();
+  CalcSubTotal();
+  CalcDiscount();
+  CalcTotal()
 }
 
 //----------------------trash button function-----------------
@@ -345,5 +328,58 @@ function deleteItem(){
   let itemInfo = cart.findIndex(value => value.productId == product_Id);
 
   cart.splice(itemInfo);
-  addToHtml();
+  AddToHtml();
+  CalcSubTotal();
+  CalcDiscount();
+  CalcTotal()
+}
+
+//-------------------------calculate subtotal and display it-----------------------
+
+function CalcSubTotal(){
+  const subttl = document.getElementById("subtotal");
+
+  let subtotal = 0;
+  for (let i = 0; i < cart.length; i++) {
+    let indexOfObject = itemList.findIndex((value) => value.id == cart[i].productId);
+    let objectInfo = itemList[indexOfObject];
+    
+    let itemTotal = objectInfo.price * cart[i].quantity;
+    subtotal += itemTotal;
+  }
+  subttl.innerText = `Rs.${subtotal}`;
+  return subtotal;
+}
+
+//-------------------add discount applying option---------------
+
+let discountDisplay = document.getElementById("discount")
+let inputDiscount = document.getElementById("discount-percentage")
+
+function CalcDiscount(){
+  let discountPercent = inputDiscount.value;
+  let subtotal = CalcSubTotal();
+
+  let discount = subtotal / 100 * discountPercent;
+  discount = Math.round(discount);
+  discountDisplay.innerText = `RS.${discount}`
+  
+  return discount;
+}
+
+//--------------when click btn clear input discount--------------
+function ClearFields() {
+  document.getElementById("discount-percentage").value = "";
+}
+
+//-------------------calculate total and display function----------
+
+let totalDisplay = document.getElementById("total");
+
+function CalcTotal(){
+  let subtotal = CalcSubTotal();
+  let discount = CalcDiscount();
+  let total = subtotal - discount;
+
+  totalDisplay.innerText = `RS.${total}`
 }
