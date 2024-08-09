@@ -382,4 +382,72 @@ function CalcTotal(){
   let total = subtotal - discount;
 
   totalDisplay.innerText = `RS.${total}`
+  return total;
+}
+
+//----------------order id----------------
+
+let orderNumber = 0;
+let order_Id;
+let orderIdDisplay = document.getElementById("order-id");
+
+order_Id = zeroPad()
+orderIdDisplay.innerText = `${order_Id}`
+
+function zeroPad() {
+  orderNumber = ++orderNumber;
+  return '#'+orderNumber.toString().padStart(4, "0");
+}
+
+function OrderID(){
+  order_Id = zeroPad()
+  orderIdDisplay = document.getElementById("order-id");
+  orderIdDisplay.innerText = `${order_Id}`
+}
+
+//-------------------------setup PopUp form------------
+
+function ToggleActive(){
+  let blur = document.getElementById("blur");
+  blur.classList.toggle("blur")
+
+  let form = document.getElementById("form-payment");
+  form.style.display = 'block';
+}
+
+function ToggleInActive(){
+  let blur = document.getElementById("blur");
+  blur.classList.toggle("blur")
+
+  let form = document.getElementById("form-payment");
+  form.style.display = 'none';
+}
+
+//-------------------add order details and bill for popup----------------
+
+let popupOrderDisplay = document.getElementById("cart-items");
+let popDiscountDisplay = document.getElementById("discount-pop");
+let popSubtotalDisplay = document.getElementById("subtotal-pop");
+let popTotalDisplay = document.getElementById("total-pop");
+
+function AddItemToPopup(){
+  let total = CalcTotal();
+  let discount = CalcDiscount();
+  let subTotal = CalcSubTotal();
+  popupOrderDisplay.innerHTML = '';
+
+  cart.forEach(element => {
+    let indexOfItem = itemList.findIndex(value => value.id == element.productId)
+    popupOrderDisplay.innerHTML += `
+      <div class="item-info mt-3">
+        <h6>${itemList[indexOfItem].title}</h6>
+        <h6>*${element.quantity}</h6>
+        <h6 class="price">Rs.${itemList[indexOfItem].price * element.quantity}</h6>
+      </div>
+      `
+  })
+
+  popTotalDisplay.innerText = `Rs.${total}`
+  popSubtotalDisplay.innerText = `Rs.${subTotal}`
+  popDiscountDisplay.innerText = `Rs.${discount}`
 }
