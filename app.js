@@ -229,7 +229,7 @@ function addToCart(product_Id) {
   AddToHtml();
   CalcSubTotal();
   CalcDiscount();
-  CalcTotal()
+  CalcTotal();
 }
 
 const AddToHtml = () => {
@@ -249,7 +249,9 @@ const AddToHtml = () => {
       "justify-content-center"
     );
     items.dataset.id = carts.productId;
-    let indexOfObject = itemList.findIndex((value) => value.id == carts.productId);
+    let indexOfObject = itemList.findIndex(
+      (value) => value.id == carts.productId
+    );
     let objectInfo = itemList[indexOfObject];
 
     items.innerHTML = `
@@ -259,9 +261,8 @@ const AddToHtml = () => {
       </div>
       <div class="quantity-container">
         <button class="quantity-btn decrement-btn" id="decrement-btn">-</button>
-        <input type="text" id="quantity-input" value="${
-          carts.quantity
-        }" readonly />
+        <input type="text" id="quantity-input" value="${carts.quantity
+      }" readonly />
         <button class="quantity-btn increment-btn" id="increment-btn">+</button>
       </div>
       <div class="price d-flex justify-content-center">
@@ -273,7 +274,7 @@ const AddToHtml = () => {
     `;
 
     cartBody.appendChild(items); // Append each items element inside the loop
-  });  
+  });
 };
 
 function clearContentAfterOrderId() {
@@ -293,57 +294,62 @@ function clearContentAfterOrderId() {
 //------------------increase and decrease quantity-----
 const cartItemToIncrease = document.getElementById("card-body");
 
-cartItemToIncrease.addEventListener("click" , (event) => {
+cartItemToIncrease.addEventListener("click", (event) => {
   let positionClick = event.target;
-  if (positionClick.classList.contains('increment-btn') || positionClick.classList.contains('decrement-btn')) {
+  if (
+    positionClick.classList.contains("increment-btn") ||
+    positionClick.classList.contains("decrement-btn")
+  ) {
     let product_Id = positionClick.parentElement.parentElement.dataset.id;
     console.log(product_Id);
     let type = "minus";
-    if (positionClick.classList.contains('increment-btn')) {
+    if (positionClick.classList.contains("increment-btn")) {
       type = "plus";
     }
-  ChangeQuantity(product_Id,type);
+    ChangeQuantity(product_Id, type);
   }
-})
+});
 
-const ChangeQuantity = (product_Id,type) => {
-  let itemInfo = cart.findIndex(value => value.productId == product_Id);
+const ChangeQuantity = (product_Id, type) => {
+  let itemInfo = cart.findIndex((value) => value.productId == product_Id);
   if (type == "minus") {
     if (cart[itemInfo].quantity > 1) {
       cart[itemInfo].quantity = cart[itemInfo].quantity - 1;
     }
-  }else {
+  } else {
     cart[itemInfo].quantity = cart[itemInfo].quantity + 1;
   }
   AddToHtml();
   CalcSubTotal();
   CalcDiscount();
-  CalcTotal()
-}
+  CalcTotal();
+};
 
 //----------------------trash button function-----------------
 
-function deleteItem(){
+function deleteItem() {
   let product_Id = cartItemToIncrease.parentElement.parentElement.dataset.id;
-  let itemInfo = cart.findIndex(value => value.productId == product_Id);
+  let itemInfo = cart.findIndex((value) => value.productId == product_Id);
 
   cart.splice(itemInfo);
   AddToHtml();
   CalcSubTotal();
   CalcDiscount();
-  CalcTotal()
+  CalcTotal();
 }
 
 //-------------------------calculate subtotal and display it-----------------------
 
-function CalcSubTotal(){
+function CalcSubTotal() {
   const subttl = document.getElementById("subtotal");
 
   let subtotal = 0;
   for (let i = 0; i < cart.length; i++) {
-    let indexOfObject = itemList.findIndex((value) => value.id == cart[i].productId);
+    let indexOfObject = itemList.findIndex(
+      (value) => value.id == cart[i].productId
+    );
     let objectInfo = itemList[indexOfObject];
-    
+
     let itemTotal = objectInfo.price * cart[i].quantity;
     subtotal += itemTotal;
   }
@@ -353,35 +359,37 @@ function CalcSubTotal(){
 
 //-------------------add discount applying option---------------
 
-let discountDisplay = document.getElementById("discount")
-let inputDiscount = document.getElementById("discount-percentage")
+let discountDisplay = document.getElementById("discount");
+let inputDiscount = document.getElementById("discount-percentage");
 
-function CalcDiscount(){
+function CalcDiscount() {
   let discountPercent = inputDiscount.value;
   let subtotal = CalcSubTotal();
 
-  let discount = subtotal / 100 * discountPercent;
+  let discount = (subtotal / 100) * discountPercent;
   discount = Math.round(discount);
-  discountDisplay.innerText = `RS.${discount}`
-  
+  discountDisplay.innerText = `RS.${discount}`;
+
   return discount;
 }
 
-//--------------when click btn clear input discount--------------
+//--------------when click btn clear fields for another order--------------
 function ClearFields() {
   document.getElementById("discount-percentage").value = "";
+
+  cart.length = 0;
 }
 
 //-------------------calculate total and display function----------
 
 let totalDisplay = document.getElementById("total");
 
-function CalcTotal(){
+function CalcTotal() {
   let subtotal = CalcSubTotal();
   let discount = CalcDiscount();
   let total = subtotal - discount;
 
-  totalDisplay.innerText = `RS.${total}`
+  totalDisplay.innerText = `RS.${total}`;
   return total;
 }
 
@@ -391,36 +399,36 @@ let orderNumber = 0;
 let order_Id;
 let orderIdDisplay = document.getElementById("order-id");
 
-order_Id = zeroPad()
-orderIdDisplay.innerText = `${order_Id}`
+order_Id = zeroPad();
+orderIdDisplay.innerText = `${order_Id}`;
 
 function zeroPad() {
   orderNumber = ++orderNumber;
-  return '#'+orderNumber.toString().padStart(4, "0");
+  return "#" + orderNumber.toString().padStart(4, "0");
 }
 
-function OrderID(){
-  order_Id = zeroPad()
+function OrderID() {
+  order_Id = zeroPad();
   orderIdDisplay = document.getElementById("order-id");
-  orderIdDisplay.innerText = `${order_Id}`
+  orderIdDisplay.innerText = `${order_Id}`;
 }
 
 //-------------------------setup PopUp form------------
 
-function ToggleActive(){
+function ToggleActive() {
   let blur = document.getElementById("blur");
-  blur.classList.toggle("blur")
+  blur.classList.toggle("blur");
 
   let form = document.getElementById("form-payment");
-  form.style.display = 'block';
+  form.style.display = "block";
 }
 
-function ToggleInActive(){
+function ToggleInActive() {
   let blur = document.getElementById("blur");
-  blur.classList.toggle("blur")
+  blur.classList.toggle("blur");
 
   let form = document.getElementById("form-payment");
-  form.style.display = 'none';
+  form.style.display = "none";
 }
 
 //-------------------add order details and bill for popup----------------
@@ -430,24 +438,68 @@ let popDiscountDisplay = document.getElementById("discount-pop");
 let popSubtotalDisplay = document.getElementById("subtotal-pop");
 let popTotalDisplay = document.getElementById("total-pop");
 
-function AddItemToPopup(){
+function AddItemToPopup() {
   let total = CalcTotal();
   let discount = CalcDiscount();
   let subTotal = CalcSubTotal();
-  popupOrderDisplay.innerHTML = '';
+  popupOrderDisplay.innerHTML = "";
 
-  cart.forEach(element => {
-    let indexOfItem = itemList.findIndex(value => value.id == element.productId)
+  cart.forEach((element) => {
+    let indexOfItem = itemList.findIndex((value) => value.id == element.productId);
     popupOrderDisplay.innerHTML += `
       <div class="item-info mt-3">
         <h6>${itemList[indexOfItem].title}</h6>
         <h6>*${element.quantity}</h6>
-        <h6 class="price">Rs.${itemList[indexOfItem].price * element.quantity}</h6>
+        <h6 class="price">Rs.${itemList[indexOfItem].price * element.quantity
+      }</h6>
       </div>
-      `
-  })
+      `;
+  });
 
-  popTotalDisplay.innerText = `Rs.${total}`
-  popSubtotalDisplay.innerText = `Rs.${subTotal}`
-  popDiscountDisplay.innerText = `Rs.${discount}`
+  popTotalDisplay.innerText = `Rs.${total}`;
+  popSubtotalDisplay.innerText = `Rs.${subTotal}`;
+  popDiscountDisplay.innerText = `Rs.${discount}`;
+}
+
+//-------------------store order details-------------
+
+let nameCustomer = document.getElementById("customer-name");
+let phoneCustomer = document.getElementById("customer-contact");
+let date = new Date();
+let index = 0;
+let orderDetails = [];
+
+function storeOrderDetails() {
+  let total = CalcTotal();
+  let discount = CalcDiscount();
+
+  orderDetails.push({
+    orderId: order_Id,
+    custName: nameCustomer.value,
+    custPhone: phoneCustomer.value,
+    date: date.toLocaleDateString(),
+    time: date.toLocaleTimeString(),
+    infoItems: [],
+    total: total,
+    discount: discount,
+  });
+
+  cart.forEach((element) => {
+    let indexOfItem = itemList.findIndex((value) => value.id == element.productId);
+
+    orderDetails[index].infoItems.push({
+      itemID: element.productId,
+      itemPrice: itemList[indexOfItem].price,
+      itemDiscount: itemList[indexOfItem].discount,
+      itemQuantity: element.quantity,
+    });
+  });
+  index++;
+  console.log(orderDetails);
+  ClearFields();
+  ToggleInActive();
+  AddToHtml();
+  CalcSubTotal();
+  CalcTotal();
+  CalcDiscount()
 }
