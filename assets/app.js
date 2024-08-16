@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 //------------------item array---------------------
-const itemList = [
+const itemListLocal = [
   {
     id: "B1001",
     img: "img/burger-1.png",
@@ -141,6 +141,11 @@ const itemList = [
     category: "Pasta",
   },
 ];
+
+let stringifiedItemList = JSON.stringify(itemListLocal);
+localStorage.setItem("itemListJson", stringifiedItemList);
+
+let itemList = JSON.parse(localStorage.getItem("itemListJson"));
 
 //-----------------Add Item cards--------------------------
 
@@ -620,4 +625,5 @@ function generatePDF() {
 
     indexOfObj++;
     ClearFields();
+    AddToHtml();
 }
