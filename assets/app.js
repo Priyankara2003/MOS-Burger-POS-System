@@ -119,7 +119,7 @@ const itemListLocal = [
   {
     id: "test",
     img: "img/burger-3.png",
-    title: "test Burger",
+    title: "test Submarines",
     price: 1800,
     discount: 0,
     category: "Submarines",
@@ -127,7 +127,7 @@ const itemListLocal = [
   {
     id: "test2",
     img: "img/burger-3.png",
-    title: "test3 Burger",
+    title: "test3 Submarines",
     price: 1800,
     discount: 0,
     category: "Submarines",
@@ -135,7 +135,7 @@ const itemListLocal = [
   {
     id: "test",
     img: "img/burger-1.png",
-    title: "test2 Burger",
+    title: "test2 pasta",
     price: 1800,
     discount: 0,
     category: "Pasta",
@@ -519,9 +519,9 @@ function storeOrderDetails() {
 const { jsPDF } = window.jspdf;
 
 function getTableData() {
-    let tableData = JSON.parse(localStorage.getItem('orderDetails')) || [];
-    console.log("Table Data:", tableData);
-    return tableData;
+  let tableData = JSON.parse(localStorage.getItem('orderDetails')) || [];
+  console.log("Table Data:", tableData);
+  return tableData;
 }
 
 let indexOfObj = 0;
@@ -530,100 +530,100 @@ function generatePDF() {
   const tableData = getTableData();
 
   if (!Array.isArray(tableData) || tableData.length === 0) {
-      console.error("No valid table data available.");
-      return;
+    console.error("No valid table data available.");
+    return;
   }
 
   const doc = new jsPDF();
 
-    // Header with Company Name/Logo and Invoice Details
-    const logoImg = 'img/logo.png';
-    doc.addImage(logoImg, 'PNG', 20, 5, 40, 20);
+  // Header with Company Name/Logo and Invoice Details
+  const logoImg = 'img/logo.png';
+  doc.addImage(logoImg, 'PNG', 20, 5, 40, 20);
 
 
-    doc.setFontSize(12);
-    doc.setFont("Helvetica", "normal");
-    doc.text(`Invoice ${order_Id}`, 200, 20, { align: "right" });
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, 200, 26, { align: "right" });
+  doc.setFontSize(12);
+  doc.setFont("Helvetica", "normal");
+  doc.text(`Invoice ${order_Id}`, 200, 20, { align: "right" });
+  doc.text(`Date: ${new Date().toLocaleDateString()}`, 200, 26, { align: "right" });
 
-    // Divider
-    doc.setLineWidth(0.5);
-    doc.line(14, 30, 200, 30);
+  // Divider
+  doc.setLineWidth(0.5);
+  doc.line(14, 30, 200, 30);
 
-    // Sender and Receiver Information
-    doc.setFont("Helvetica", "bold");
-    doc.text("From:", 14, 40);
-    doc.text("To:", 200, 40, { align: "right" });
+  // Sender and Receiver Information
+  doc.setFont("Helvetica", "bold");
+  doc.text("From:", 14, 40);
+  doc.text("To:", 200, 40, { align: "right" });
 
-    doc.setFont("Helvetica", "normal");
-    doc.text("MOS Burgers", 14, 46);
-    doc.text("62,Mathara Road", 14, 52);
-    doc.text("Galle,Sri Lanka 80000", 14, 58);
-    doc.text("Email: mosburgers@gmail.com", 14, 64);
-    doc.text("Phone: +94 74 54 43 456", 14, 70);
+  doc.setFont("Helvetica", "normal");
+  doc.text("MOS Burgers", 14, 46);
+  doc.text("62,Mathara Road", 14, 52);
+  doc.text("Galle,Sri Lanka 80000", 14, 58);
+  doc.text("Email: mosburgers@gmail.com", 14, 64);
+  doc.text("Phone: +94 74 54 43 456", 14, 70);
 
-    doc.text(`${tableData[indexOfObj].custName}`, 200, 46, { align: "right" });
-    doc.text(`Phone: ${tableData[indexOfObj].custPhone}`, 200, 52, { align: "right" });
+  doc.text(`${tableData[indexOfObj].custName}`, 200, 46, { align: "right" });
+  doc.text(`Phone: ${tableData[indexOfObj].custPhone}`, 200, 52, { align: "right" });
 
-    // Divider
-    doc.line(14, 78, 200, 78);
+  // Divider
+  doc.line(14, 78, 200, 78);
 
-    // Table Headers
-    doc.setFont("Helvetica", "bold");
-    doc.text('#', 14, 85);
-    doc.text('Item', 25, 85);
-    doc.text('Discount', 80, 85);
-    doc.text('Price', 120, 85);
-    doc.text('Qty', 160, 85);
-    doc.text('Total', 200, 85, { align: "right" });
+  // Table Headers
+  doc.setFont("Helvetica", "bold");
+  doc.text('#', 14, 85);
+  doc.text('Item', 25, 85);
+  doc.text('Discount', 80, 85);
+  doc.text('Price', 120, 85);
+  doc.text('Qty', 160, 85);
+  doc.text('Total', 200, 85, { align: "right" });
 
-    // Divider under table headers
-    doc.line(14, 88, 200, 88);
+  // Divider under table headers
+  doc.line(14, 88, 200, 88);
 
-    // Table Data
-    doc.setFont("Helvetica", "normal");
-    let y = 98;
-    tableData[indexOfObj].infoItems.forEach((item, index) => {
-        let indexOfItem = itemList.findIndex((value) => value.id == item.itemID);
+  // Table Data
+  doc.setFont("Helvetica", "normal");
+  let y = 98;
+  tableData[indexOfObj].infoItems.forEach((item, index) => {
+    let indexOfItem = itemList.findIndex((value) => value.id == item.itemID);
 
-        doc.text(String(index + 1), 14, y);
-        doc.text(itemList[indexOfItem].title || 'N/A', 25, y);
-        doc.text(String(item.itemDiscount)+"%" || 'N/A', 80, y);
-        doc.text(`Rs.${parseFloat(item.itemPrice || 0).toFixed(2)}`, 120, y);
-        doc.text(String(item.itemQuantity || 0), 160, y);
-        doc.text(`Rs.${(parseFloat(itemList[indexOfItem].price || 0) * parseFloat(item.itemQuantity || 0)).toFixed(2)}`, 200, y, { align: "right" });
-        y += 10;
-    });
+    doc.text(String(index + 1), 14, y);
+    doc.text(itemList[indexOfItem].title || 'N/A', 25, y);
+    doc.text(String(item.itemDiscount) + "%" || 'N/A', 80, y);
+    doc.text(`Rs.${parseFloat(item.itemPrice || 0).toFixed(2)}`, 120, y);
+    doc.text(String(item.itemQuantity || 0), 160, y);
+    doc.text(`Rs.${(parseFloat(itemList[indexOfItem].price || 0) * parseFloat(item.itemQuantity || 0)).toFixed(2)}`, 200, y, { align: "right" });
+    y += 10;
+  });
 
-    // Divider under table data
-    doc.line(14, y + 5, 200, y + 5);
+  // Divider under table data
+  doc.line(14, y + 5, 200, y + 5);
 
-    // Calculate totals
-    let total = CalcTotal();
-    let discount = CalcDiscount();
-    let subTotal = CalcSubTotal();
+  // Calculate totals
+  let total = CalcTotal();
+  let discount = CalcDiscount();
+  let subTotal = CalcSubTotal();
 
-    // Summary Section
-    doc.setFont("Helvetica", "bold");
-    doc.text(`Subtotal`, 140, y + 15, null, null, "right");
-    doc.text(`Rs.${subTotal.toFixed(2)}`, 170, y + 15, null, null, "right");
+  // Summary Section
+  doc.setFont("Helvetica", "bold");
+  doc.text(`Subtotal`, 140, y + 15, null, null, "right");
+  doc.text(`Rs.${subTotal.toFixed(2)}`, 170, y + 15, null, null, "right");
 
-    doc.text(`Discount`, 140, y + 25, null, null, "right");
-    doc.text(`-Rs.${discount.toFixed(2)}`, 170, y + 25, null, null, "right");
+  doc.text(`Discount`, 140, y + 25, null, null, "right");
+  doc.text(`-Rs.${discount.toFixed(2)}`, 170, y + 25, null, null, "right");
 
-    doc.text(`Total`, 140, y + 35, null, null, "right");
-    doc.text(`Rs.${total.toFixed(2)}`, 170, y + 35, null, null, "right");
+  doc.text(`Total`, 140, y + 35, null, null, "right");
+  doc.text(`Rs.${total.toFixed(2)}`, 170, y + 35, null, null, "right");
 
 
-    // Footer
-    doc.setFontSize(10);
-    doc.setFont("Helvetica", "italic");
-    doc.text("MOS Burgers, Mathara Road, Galle, 80000", 14, 290);
+  // Footer
+  doc.setFontSize(10);
+  doc.setFont("Helvetica", "italic");
+  doc.text("MOS Burgers, Mathara Road, Galle, 80000", 14, 290);
 
-    // Save the PDF
-    doc.save(`payment_invoice${order_Id}.pdf`);
+  // Save the PDF
+  doc.save(`payment_invoice${order_Id}.pdf`);
 
-    indexOfObj++;
-    ClearFields();
-    AddToHtml();
+  indexOfObj++;
+  ClearFields();
+  AddToHtml();
 }
