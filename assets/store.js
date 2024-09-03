@@ -1,44 +1,44 @@
 document.addEventListener("DOMContentLoaded", function (event) {
     const showNavbar = (toggleId, navId, bodyId, headerId) => {
-      const toggle = document.getElementById(toggleId),
-        nav = document.getElementById(navId),
-        bodypd = document.getElementById(bodyId),
-        headerpd = document.getElementById(headerId);
-  
-      // Validate that all variables exist
-      if (toggle && nav && bodypd && headerpd) {
-        toggle.addEventListener("click", () => {
-          // show navbar
-          nav.classList.toggle("show-nav");
-          // change icon
-          toggle.classList.toggle("bx-x");
-          // add padding to body
-          bodypd.classList.toggle("body-pd");
-          // add padding to header
-          headerpd.classList.toggle("body-pd");
-        });
-      }
+        const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId);
+
+        // Validate that all variables exist
+        if (toggle && nav && bodypd && headerpd) {
+            toggle.addEventListener("click", () => {
+                // show navbar
+                nav.classList.toggle("show-nav");
+                // change icon
+                toggle.classList.toggle("bx-x");
+                // add padding to body
+                bodypd.classList.toggle("body-pd");
+                // add padding to header
+                headerpd.classList.toggle("body-pd");
+            });
+        }
     };
-  
+
     showNavbar("header-toggle", "nav-bar", "body-pd", "header");
-  
+
     /*===== LINK ACTIVE =====*/
     const linkColor = document.querySelectorAll(".nav_link");
-  
+
     function colorLink() {
-      if (linkColor) {
-        linkColor.forEach((l) => l.classList.remove("active"));
-        this.classList.add("active");
-      }
+        if (linkColor) {
+            linkColor.forEach((l) => l.classList.remove("active"));
+            this.classList.add("active");
+        }
     }
     linkColor.forEach((l) => l.addEventListener("click", colorLink));
-  });
+});
 
 //-------------------inject table data------------------
 
 const addItemInfoToTable = () => {
     let itemInfoParsed = JSON.parse(localStorage.getItem("itemListJson"));
-    
+
     itemInfoParsed.forEach((element) => {
         if (element.category == "Burgers") {
             document.getElementById("burger").innerHTML += `
@@ -99,7 +99,7 @@ const addItemInfoToTable = () => {
                                     <i class="bx bxs-trash avatar" role="button" onclick="deleteItem(this)"></i>
                                 </td>
                             </tr>`;
-        } 
+        }
         // else if (element.category == "Pasta") {
         //     document.getElementById("pasta-category").innerHTML += `
         //                     <tr class="t-data" data-id="${element.id}">
@@ -165,4 +165,63 @@ function ToggleInActive() {
 
     let form = document.getElementById("add-item-form");
     form.style.display = "none";
+}
+
+
+// add Item to Storage using add-item-form
+const formProductID = document.getElementById('product-id');
+const formProductTitle = document.getElementById('product-title');
+const formProductPrice = document.getElementById('product-price');
+const formProductDiscount = document.getElementById('product-discount');
+const formProductCategory = document.getElementById('categories');
+
+function clearFields() {
+    formProductID.value = '';
+    formProductTitle.value = '';
+    formProductPrice.value = '';
+    formProductDiscount.value = '';
+    formProductCategory.value = '';
+}
+
+function addItems() {
+    if (formProductID.value != '' && formProductTitle.value != '' && formProductPrice.value != '' && formProductDiscount.value != '' && formProductCategory.value != '') {
+        let itemList = JSON.parse(localStorage.getItem("itemListJson"));
+        let img_form;
+        switch (formProductCategory.value) {
+            case 'Burgers':
+                img_form = "img/burger-1.png"
+                break;
+            case 'Submarines':
+                img_form = "img/burger-1.png"
+                break;
+            case 'Pasta':
+                img_form = "img/burger-1.png"
+                break;
+
+            default:
+                img_form = "img/burger-1.png"
+                break;
+        }
+
+        itemList.push({
+            id: formProductID.value,
+            img: img_form,
+            title: formProductTitle.value,
+            price: formProductPrice.value,
+            discount: formProductDiscount.value,
+            category: formProductCategory.value,
+        })
+
+        let stringifiedItemList = JSON.stringify(itemList);
+        localStorage.setItem("itemListJson", stringifiedItemList);
+
+        alert('Item Added Succesfully!')
+
+        clearContent();
+        addItemInfoToTable();
+        clearFields();
+    }else{
+        alert('Enter Data For All Fields!')
+    }
+
 }

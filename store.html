@@ -274,14 +274,14 @@
             <div class="info-item mb-4">
                 <span class="form-label">Product Category</span>
                 <select name="category" id="categories" class="ms-1 w-50 form-control mt-2" required>
-                    <option value=""></option>
+                    <option value="" selected disabled hidden></option>
                     <option value="Burgers">Burger</option>
                     <option value="Submarines">Submarine</option>
                     <option value="Pasta">Pasta</option>
                 </select>
             </div>
             <div class="btn-field">
-                <button class="btn btn-primary">Add To Store</button>
+                <button class="btn btn-primary" onclick="addItems()">Add To Store</button>
             </div>
         </div>
     </div>
