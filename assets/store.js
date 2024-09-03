@@ -47,7 +47,7 @@ const addItemInfoToTable = () => {
                                 <td>${element.title}</td>
                                 <td>Rs.${element.price}</td>
                                 <td>
-                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick=""></i>
+                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick="ToggleActiveEditForm(this)"></i>
                                     <i class="bx bxs-trash avatar" role="button" onclick="deleteItem(this)"></i>
                                 </td>
                             </tr>`;
@@ -58,7 +58,7 @@ const addItemInfoToTable = () => {
                                 <td>${element.title}</td>
                                 <td>Rs.${element.price}</td>
                                 <td>
-                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick=""></i>
+                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick="ToggleActiveEditForm(this)"></i>
                                     <i class="bx bxs-trash avatar" role="button" onclick="deleteItem(this)"></i>
                                 </td>
                             </tr>`;
@@ -69,7 +69,7 @@ const addItemInfoToTable = () => {
                                 <td>${element.title}</td>
                                 <td>Rs.${element.price}</td>
                                 <td>
-                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick=""></i>
+                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick="ToggleActiveEditForm(this)"></i>
                                     <i class="bx bxs-trash avatar" role="button" onclick="deleteItem(this)"></i>
                                 </td>
                             </tr>`;
@@ -84,7 +84,7 @@ const addItemInfoToTable = () => {
                                 <td>${element.title}</td>
                                 <td>Rs.${element.price}</td>
                                 <td>
-                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick=""></i>
+                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick="ToggleActiveEditForm(this)"></i>
                                     <i class="bx bxs-trash avatar" role="button" onclick="deleteItem(this)"></i>
                                 </td>
                             </tr>`;
@@ -95,7 +95,7 @@ const addItemInfoToTable = () => {
                                 <td>${element.title}</td>
                                 <td>Rs.${element.price}</td>
                                 <td>
-                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick=""></i>
+                                    <i class="bx bxs-message-square-edit avatar me-lg-5" role="button" onclick="ToggleActiveEditForm(this)"></i>
                                     <i class="bx bxs-trash avatar" role="button" onclick="deleteItem(this)"></i>
                                 </td>
                             </tr>`;
@@ -149,7 +149,7 @@ function deleteItem(el) {
     }
 }
 
-//-------------------------setup PopUp form------------
+//-------------------------setup add item PopUp form------------
 
 function ToggleActive() {
     let blur = document.getElementById("blur");
@@ -167,6 +167,25 @@ function ToggleInActive() {
     form.style.display = "none";
 }
 
+//-------------------------setup edit item info PopUp form------------
+
+function ToggleActiveEditForm(el) {
+    let blur = document.getElementById("blur");
+    blur.classList.toggle("blur");
+
+    let form = document.getElementById("edit-item-form");
+    form.style.display = "block";
+
+    fillItemInfo(el);
+}
+
+function ToggleInActiveEditForm() {
+    let blur = document.getElementById("blur");
+    blur.classList.toggle("blur");
+
+    let form = document.getElementById("edit-item-form");
+    form.style.display = "none";
+}
 
 // add Item to Storage using add-item-form
 const formProductID = document.getElementById('product-id');
@@ -175,7 +194,7 @@ const formProductPrice = document.getElementById('product-price');
 const formProductDiscount = document.getElementById('product-discount');
 const formProductCategory = document.getElementById('categories');
 
-function clearFields() {
+function clearFieldsAddItemForm() {
     formProductID.value = '';
     formProductTitle.value = '';
     formProductPrice.value = '';
@@ -219,9 +238,58 @@ function addItems() {
 
         clearContent();
         addItemInfoToTable();
-        clearFields();
+        clearFieldsAddItemForm();
     }else{
         alert('Enter Data For All Fields!')
     }
+}
 
+//edit item information form 
+const editFormProductID = document.getElementById('edit-product-id');
+const editFormProductTitle = document.getElementById('edit-product-title');
+const editFormProductPrice = document.getElementById('edit-product-price');
+const editFormProductDiscount = document.getElementById('edit-product-discount');
+const editFormProductCategory = document.getElementById('edit-categories');
+
+function fillItemInfo(el){
+    let itemInfoId = el.parentElement.parentElement.dataset.id;
+
+    let itemInfoParsed = JSON.parse(localStorage.getItem("itemListJson"));
+    let indexOfItem = itemInfoParsed.findIndex((value) => value.id == itemInfoId);
+
+    if (indexOfItem !== -1) {
+        let info = itemInfoParsed[indexOfItem];
+
+        editFormProductID.value = info.id;
+        editFormProductTitle.value = info.title;
+        editFormProductPrice.value = info.price;
+        editFormProductDiscount.value = info.discount;
+        editFormProductCategory.value = info.category;
+    } else {
+        alert("Item not found in the db.");
+    }
+}
+
+function updateItemInfo(){
+    let itemInfoParsed = JSON.parse(localStorage.getItem("itemListJson"));
+    let indexOfItem = itemInfoParsed.findIndex((value) => value.id == editFormProductID.value);
+
+    if (indexOfItem !== -1) {
+        let info = itemInfoParsed[indexOfItem];
+
+        info.title = editFormProductTitle.value;
+        info.price = editFormProductPrice.value;
+        info.discount = editFormProductDiscount.value;
+        info.category = editFormProductCategory.value;
+
+        let stringifiedItemList = JSON.stringify(itemInfoParsed);
+        localStorage.setItem("itemListJson", stringifiedItemList);
+
+        alert('Item info Updated Succesfully!');
+
+        clearContent();
+        addItemInfoToTable();
+    }else{
+        alert("Can't Found item. Plese Do not change product ID.")
+    }
 }

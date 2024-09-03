@@ -286,6 +286,49 @@
         </div>
     </div>
 
+    <!-- setup Edit item info form -->
+    <div class="main">
+        <div class="edit-item-form" id="edit-item-form">
+            <div class="title d-flex m-4">
+                <h2 class="fw-semibold align-items-center me-5">Update Item Informations</h2>
+                <i class="bx bxs-x-square ms-auto fs-4" role="button" onclick="ToggleInActiveEditForm()"></i>
+            </div>
+            <div class="info-item mb-4">
+                <span class="form-label">Product Id</span>
+                <input type="text" placeholder="ex:- B1001" autocomplete="off" id="edit-product-id"
+                    class="form-control mt-2" />
+            </div>
+            <div class="info-item mb-4">
+                <span class="form-label">Product Title</span>
+                <input type="text" placeholder="ex:- Burger Large" autocomplete="off" id="edit-product-title"
+                    class="form-control mt-2" />
+            </div>
+            <div class="info-item mb-4">
+                <span class="form-label">Product Price</span>
+                <input type="text" placeholder="ex:- 270" autocomplete="off" id="edit-product-price"
+                    class="form-control mt-2" />
+            </div>
+            <div class="info-item mb-4">
+                <span class="form-label">Product Discount</span>
+                <input type="text" placeholder="ex:- 20" autocomplete="off" id="edit-product-discount"
+                    class="form-control mt-2" />
+            </div>
+            <div class="info-item mb-4">
+                <span class="form-label">Product Category</span>
+                <select name="category" id="edit-categories" class="ms-1 w-50 form-control mt-2" required>
+                    <option value="" selected disabled hidden></option>
+                    <option value="Burgers">Burger</option>
+                    <option value="Submarines">Submarine</option>
+                    <option value="Pasta">Pasta</option>
+                </select>
+            </div>
+            <div class="btn-field">
+                <button class="btn btn-primary" onclick="updateItemInfo()">Update Item</button>
+            </div>
+        </div>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
