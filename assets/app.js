@@ -34,143 +34,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
   linkColor.forEach((l) => l.addEventListener("click", colorLink));
 });
 
-//------------------item array---------------------
-const itemListLocal = [
-  {
-    id: "B1001",
-    img: "img/burger-1.png",
-    title: "Classic Burger (Large)",
-    price: 1500,
-    discount: 15,
-    category: "Burgers",
-  },
-  {
-    id: "B1002",
-    img: "img/burger-1.png",
-    title: "Classic Burger (Regular)",
-    price: 750,
-    discount: 0,
-    category: "Burgers",
-  },
-  {
-    id: "B1003",
-    img: "img/burger-1.png",
-    title: "Turkey Burger",
-    price: 1600,
-    discount: 0,
-    category: "Burgers",
-  },
-  {
-    id: "B1004",
-    img: "img/burger-1.png",
-    title: "Chicken Burger (Large)",
-    price: 1400,
-    discount: 0,
-    category: "Burgers",
-  },
-  {
-    id: "B1005",
-    img: "img/burger-1.png",
-    title: "Chicken Burger (Regular)",
-    price: 800,
-    discount: 20,
-    category: "Burgers",
-  },
-  {
-    id: "B1006",
-    img: "img/burger-1.png",
-    title: "Cheese Burger (Large)",
-    price: 1000,
-    discount: 0,
-    category: "Burgers",
-  },
-  {
-    id: "B1007",
-    img: "img/burger-1.png",
-    title: "Cheese Burger (Regular)",
-    price: 600,
-    discount: 0,
-    category: "Burgers",
-  },
-  {
-    id: "B1008",
-    img: "img/burger-1.png",
-    title: "Bacon Burger",
-    price: 650,
-    discount: 15,
-    category: "Burgers",
-  },
-  {
-    id: "B1009",
-    img: "img/burger-1.png",
-    title: "Shawarma Burger",
-    price: 800,
-    discount: 0,
-    category: "Burgers",
-  },
-  {
-    id: "B1010",
-    img: "img/burger-1.png",
-    title: "Olive Burger",
-    price: 1800,
-    discount: 0,
-    category: "Burgers",
-  },
-  {
-    id: "test",
-    img: "img/burger-3.png",
-    title: "test Submarines",
-    price: 1800,
-    discount: 0,
-    category: "Submarines",
-  },
-  {
-    id: "test2",
-    img: "img/burger-3.png",
-    title: "test3 Submarines",
-    price: 1800,
-    discount: 0,
-    category: "Submarines",
-  },
-  {
-    id: "test",
-    img: "img/burger-1.png",
-    title: "test2 pasta",
-    price: 1800,
-    discount: 0,
-    category: "Pasta",
-  },
-];
-
-let stringifiedItemList = JSON.stringify(itemListLocal);
-localStorage.setItem("itemListJson", stringifiedItemList);
+// get items
 
 let itemList = JSON.parse(localStorage.getItem("itemListJson"));
+console.log(itemList);
+
 
 //-----------------Add Item cards--------------------------
+function addItemCards() {
+  let itemList = JSON.parse(localStorage.getItem("itemListJson"));
 
-itemList.forEach((element) => {
-  const all = document.getElementById("all");
-  const itemCard = document.createElement("div");
-  itemCard.classList.add("item-card");
-  itemCard.dataset.id = element.id;
-  itemCard.innerHTML = `
-                <div class="img">
-                    <img src="${element.img}" alt="Product Image">
-                </div>
-                <div class="content">
-                    <h3>${element.title}</h3>
-                    <span class="price">Rs.${element.price}</span>
-                    <span class="discount">${element.discount}% off</span>
-                </div>
-            `;
-  itemCard.addEventListener("click", () => addToCart(element.id));
-  all.appendChild(itemCard);
-});
-
-itemList.forEach((element) => {
-  if (element.category == "Burgers") {
-    const burgers = document.getElementById("burgers");
+  itemList.forEach((element) => {
+    const all = document.getElementById("all");
     const itemCard = document.createElement("div");
     itemCard.classList.add("item-card");
     itemCard.dataset.id = element.id;
@@ -185,13 +60,16 @@ itemList.forEach((element) => {
                 </div>
             `;
     itemCard.addEventListener("click", () => addToCart(element.id));
-    burgers.appendChild(itemCard);
-  } else if (element.category == "Submarines") {
-    const submarines = document.getElementById("submarines");
-    const itemCard = document.createElement("div");
-    itemCard.classList.add("item-card");
-    itemCard.dataset.id = element.id;
-    itemCard.innerHTML = `
+    all.appendChild(itemCard);
+  });
+
+  itemList.forEach((element) => {
+    if (element.category == "Burgers") {
+      const burgers = document.getElementById("burgers");
+      const itemCard = document.createElement("div");
+      itemCard.classList.add("item-card");
+      itemCard.dataset.id = element.id;
+      itemCard.innerHTML = `
                 <div class="img">
                     <img src="${element.img}" alt="Product Image">
                 </div>
@@ -201,10 +79,29 @@ itemList.forEach((element) => {
                     <span class="discount">${element.discount}% off</span>
                 </div>
             `;
-    itemCard.addEventListener("click", () => addToCart(element.id));
-    submarines.appendChild(itemCard);
-  }
-});
+      itemCard.addEventListener("click", () => addToCart(element.id));
+      burgers.appendChild(itemCard);
+    } else if (element.category == "Submarines") {
+      const submarines = document.getElementById("submarines");
+      const itemCard = document.createElement("div");
+      itemCard.classList.add("item-card");
+      itemCard.dataset.id = element.id;
+      itemCard.innerHTML = `
+                <div class="img">
+                    <img src="${element.img}" alt="Product Image">
+                </div>
+                <div class="content">
+                    <h3>${element.title}</h3>
+                    <span class="price">Rs.${element.price}</span>
+                    <span class="discount">${element.discount}% off</span>
+                </div>
+            `;
+      itemCard.addEventListener("click", () => addToCart(element.id));
+      submarines.appendChild(itemCard);
+    }
+  });
+
+}
 
 //-------------------------add to cart function------------------
 
@@ -254,9 +151,7 @@ const AddToHtml = () => {
       "justify-content-center"
     );
     items.dataset.id = carts.productId;
-    let indexOfObject = itemList.findIndex(
-      (value) => value.id == carts.productId
-    );
+    let indexOfObject = itemList.findIndex((value) => value.id == carts.productId);
     let objectInfo = itemList[indexOfObject];
 
     items.innerHTML = `
@@ -266,15 +161,14 @@ const AddToHtml = () => {
       </div>
       <div class="quantity-container">
         <button class="quantity-btn decrement-btn" id="decrement-btn">-</button>
-        <input type="text" id="quantity-input" value="${carts.quantity
-      }" readonly />
+        <input type="text" id="quantity-input" value="${carts.quantity}" readonly />
         <button class="quantity-btn increment-btn" id="increment-btn">+</button>
       </div>
       <div class="price d-flex justify-content-center">
         <h6>Rs.${objectInfo.price * carts.quantity}</h6>
       </div>
       <div class="trash-icon">
-        <i class="bx bxs-trash avatar" role="button" onclick="deleteItem()"></i>
+        <i class="bx bxs-trash avatar" role="button" onclick="deleteItem(this)"></i>
       </div>
     `;
 
@@ -332,11 +226,11 @@ const ChangeQuantity = (product_Id, type) => {
 
 //----------------------trash button function-----------------
 
-function deleteItem() {
-  let product_Id = cartItemToIncrease.parentElement.parentElement.dataset.id;
+function deleteItem(el) {
+  let product_Id = el.parentElement.parentElement.dataset.id;
   let itemInfo = cart.findIndex((value) => value.productId == product_Id);
 
-  cart.splice(itemInfo);
+  cart.splice(itemInfo, 1);
   AddToHtml();
   CalcSubTotal();
   CalcDiscount();
