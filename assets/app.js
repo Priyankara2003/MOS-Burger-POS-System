@@ -35,9 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 // get items
-
 let itemList = JSON.parse(localStorage.getItem("itemListJson"));
-console.log(itemList);
 
 
 //-----------------Add Item cards--------------------------
@@ -307,9 +305,17 @@ function zeroPad() {
 }
 
 function OrderID() {
-  order_Id = zeroPad();
-  orderIdDisplay = document.getElementById("order-id");
-  orderIdDisplay.innerText = `${order_Id}`;
+  let detailsOrder = JSON.parse(localStorage.getItem('orderDetails'));
+  if (detailsOrder != null) {
+    orderNumber = detailsOrder[detailsOrder.length - 1].orderId.charAt(4)
+    order_Id = zeroPad();
+    orderIdDisplay = document.getElementById("order-id");
+    orderIdDisplay.innerText = `${order_Id}`;
+  } else {
+    order_Id = zeroPad();
+    orderIdDisplay = document.getElementById("order-id");
+    orderIdDisplay.innerText = `${order_Id}`;
+  }
 }
 
 //-------------------------setup PopUp form------------
@@ -364,12 +370,20 @@ function AddItemToPopup() {
 let nameCustomer = document.getElementById("customer-name");
 let phoneCustomer = document.getElementById("customer-contact");
 let index = 0;
-let orderDetails = [];
+
+if (!sessionStorage.getItem('setOrderArray')) {
+  let orderDetails = [];
+  let stringifiedOrdedrList = JSON.stringify(orderDetails);
+  localStorage.setItem("orderDetails", stringifiedOrdedrList);
+
+  sessionStorage.setItem('setOrderArray', 'true');
+}
 
 function storeOrderDetails() {
   let date = new Date();
   let total = CalcTotal();
   let discount = CalcDiscount();
+  let orderDetails = JSON.parse(localStorage.getItem('orderDetails'))
 
   orderDetails.push({
     orderId: order_Id,
@@ -393,14 +407,11 @@ function storeOrderDetails() {
     });
   });
   index++;
-  console.log(orderDetails);
 
   let stringifiedOrderDetails = JSON.stringify(orderDetails);
   localStorage.setItem('orderDetails', stringifiedOrderDetails);
-  console.log(stringifiedOrderDetails);
 
   let orderDetailsParsed = JSON.parse(localStorage.getItem('orderDetails'));
-  console.log(orderDetailsParsed);
 
   ToggleInActive();
   AddToHtml();
