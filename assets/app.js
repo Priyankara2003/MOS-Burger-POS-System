@@ -399,7 +399,7 @@ function storeOrderDetails() {
   cart.forEach((element) => {
     let indexOfItem = itemList.findIndex((value) => value.id == element.productId);
 
-    orderDetails[index].infoItems.push({
+    orderDetails[orderDetails.length - 1].infoItems.push({
       itemID: element.productId,
       itemPrice: itemList[indexOfItem].price,
       itemDiscount: itemList[indexOfItem].discount,
@@ -531,4 +531,7 @@ function generatePDF() {
   indexOfObj++;
   ClearFields();
   AddToHtml();
+  CalcSubTotal();
+  CalcTotal();
+  CalcDiscount()
 }
