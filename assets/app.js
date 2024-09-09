@@ -307,6 +307,7 @@ function zeroPad() {
 function OrderID() {
   let detailsOrder = JSON.parse(localStorage.getItem('orderDetails'));
   if (detailsOrder != null) {
+    console.log(detailsOrder);
     orderNumber = detailsOrder[detailsOrder.length - 1].orderId.charAt(4)
     order_Id = zeroPad();
     orderIdDisplay = document.getElementById("order-id");
@@ -411,7 +412,8 @@ function storeOrderDetails() {
   let stringifiedOrderDetails = JSON.stringify(orderDetails);
   localStorage.setItem('orderDetails', stringifiedOrderDetails);
 
-  let orderDetailsParsed = JSON.parse(localStorage.getItem('orderDetails'));
+  nameCustomer.value = ''
+  phoneCustomer.value = ''
 
   ToggleInActive();
   AddToHtml();

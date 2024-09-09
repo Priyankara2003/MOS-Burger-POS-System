@@ -364,11 +364,11 @@ h3{
   margin-bottom: 10px;
 }
 
-input:hover{
+/* input:hover{
   border-color: black;
   border-width: 1px;
   box-shadow: 2px 4px 10px 5px rgb(186, 181, 243);
-}
+} */
 
 .blur {
   filter: blur(5px);

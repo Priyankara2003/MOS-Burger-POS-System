@@ -369,13 +369,59 @@ h3 {
   margin-bottom: 10px;
 }
 
-input:hover {
+/* input:hover {
   border-color: black;
   border-width: 1px;
   box-shadow: 2px 4px 10px 5px rgb(186, 181, 243);
-}
+} */
 
 .blur {
   filter: blur(5px);
   pointer-events: none;
+}
+
+.order-list .name {
+  width: 18vw;
+}
+
+.order-list .custNumber {
+  width: 16vw;
+}
+
+.order-list .functions {
+  width: 17vw;
+}
+
+
+/* order details showing form styles */
+
+.orderDetails-form {
+  width: 500px;
+  height: auto;
+  padding: 10px 20px;
+  position: absolute;
+  top: 5%;
+  left: 30%;
+  background-color: #d4d2fa;
+  display: none;
+}
+
+.table-order{
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-order th,
+.table-order td {
+  text-align: center;
+  color: black;
+  padding: 5px;
+  border: 1px solid #ddd;
+}
+
+.table{
+  max-height: 30vh;
+  overflow: auto;
 }
